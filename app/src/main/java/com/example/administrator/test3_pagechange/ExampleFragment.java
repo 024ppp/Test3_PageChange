@@ -71,6 +71,7 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
             case R.id.back_bt:
                 Toast.makeText(getActivity().getApplicationContext(), "World!", Toast.LENGTH_SHORT).show();
                 break;
+
         }
     }
 }
