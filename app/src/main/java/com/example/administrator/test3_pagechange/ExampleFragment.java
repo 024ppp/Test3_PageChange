@@ -47,13 +47,13 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
         switch (position) {
             case 0:
                 TextView textView1 = (TextView) view.findViewById(R.id.textView1);
-                textView1.setText(Integer.toString(MainActivity.cnt));
+                textView1.setText(Integer.toString(MainActivity.cnt) + "数字カウントは一回ずつ");
                 Button btn1 = (Button) view.findViewById(R.id.next_bt);
                 btn1.setOnClickListener(this);
                 break;
             case 1:
                 TextView textView2 = (TextView) view.findViewById(R.id.textView2);
-                textView2.setText(Integer.toString(MainActivity.cnt));
+                textView2.setText(Integer.toString(MainActivity.cnt) + "らしい");
                 Button btn2 = (Button) view.findViewById(R.id.back_bt);
                 btn2.setOnClickListener(this);
                 break;
