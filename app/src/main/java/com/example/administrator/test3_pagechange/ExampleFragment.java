@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +14,11 @@ import android.widget.Toast;
  */
 
 public class ExampleFragment extends Fragment implements View.OnClickListener {
-    private final static String POSITION = "background_color";
+    private final static String POSITION = "POSITION";
     int[] pages = { R.layout.activity0, R.layout.activity1};
     int cnt = 0;
-    Controls con1, con2;
+    TextView textView1, textView2;
+    Button button1;
 
     public static ExampleFragment newInstance(int position) {
         ExampleFragment frag = new ExampleFragment();
@@ -36,34 +36,29 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        int position = getArguments().getInt(POSITION);
-
         /*
         View view = inflater.inflate(R.layout.fragment_main, null);
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.fragment_main_linearlayout);
         linearLayout.setBackgroundResource(getArguments().getInt(BACKGROUND_COLOR));
         */
+        int position = getArguments().getInt(POSITION);
         View view = inflater.inflate(pages[position], null);
-        cnt++;
 
-        switch (position) {
+        switch(position) {
             case 0:
-                TextView textView1 = (TextView) view.findViewById(R.id.textView1);
-                textView1.setText(Integer.toString(cnt) + "数字カウントは一回ずつ");
-                Button btn1 = (Button) view.findViewById(R.id.next_bt);
-                btn1.setOnClickListener(this);
-
-                con1 = new Controls(view, 1);
+                textView1 = TextViews.createTextView(view, R.id.txt0);
+                textView2 = (TextView) CreateViewControl.createControl(view, R.id.textView1);
+                button1 = Buttons.createButton(view, R.id.next_bt);
                 break;
             case 1:
-                TextView textView2 = (TextView) view.findViewById(R.id.textView2);
-                textView2.setText(Integer.toString(cnt) + "らしい");
-                Button btn2 = (Button) view.findViewById(R.id.back_bt);
-                btn2.setOnClickListener(this);
-
-                con2 = new Controls(view, 2);
+                textView1 = TextViews.createTextView(view, R.id.txt1);
+                textView2 = (TextView) CreateViewControl.createControl(view, R.id.textView2);
+                button1 = Buttons.createButton(view, R.id.back_bt);
                 break;
         }
+
+        button1.setOnClickListener(this);
+
 
         return view;
     }
@@ -72,15 +67,15 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         cnt++;
         String msg = Integer.toString(cnt) + "MSG";
+        textView1.setText(msg);
+        textView2.setText(msg);
 
         switch(v.getId()) {
             case R.id.next_bt:
                 Toast.makeText(getActivity().getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
-                con1.setText(msg, 1);
                 break;
             case R.id.back_bt:
                 Toast.makeText(getActivity().getApplicationContext(), "World!", Toast.LENGTH_SHORT).show();
-                con2.setText(msg, 2);
                 break;
 
         }
