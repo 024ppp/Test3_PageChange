@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by yuki on 2016/09/28.
  */
@@ -17,8 +19,9 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
     private final static String POSITION = "POSITION";
     int[] pages = { R.layout.activity0, R.layout.activity1};
     int cnt = 0;
-    TextView textView1, textView2;
     Button button1;
+
+    ArrayList<TextView> textViews = new ArrayList<TextView>();
 
     public static ExampleFragment newInstance(int position) {
         ExampleFragment frag = new ExampleFragment();
@@ -44,31 +47,42 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
         int position = getArguments().getInt(POSITION);
         View view = inflater.inflate(pages[position], null);
 
+        setControls(view, position);
+
+        button1.setOnClickListener(this);
+        return view;
+    }
+
+    private void setControls(View view, int position){
+        ArrayList<Integer> txtId = new ArrayList<Integer>();
+
         switch(position) {
             case 0:
-                textView1 = TextViews.createTextView(view, R.id.txt0);
-                textView2 = (TextView) CreateViewControl.createControl(view, R.id.textView1);
-                button1 = Buttons.createButton(view, R.id.next_bt);
+                txtId.add(R.id.txt0);
+                txtId.add(R.id.textView1);
+                button1 = (Button) view.findViewById(R.id.next_bt);
                 break;
             case 1:
-                textView1 = TextViews.createTextView(view, R.id.txt1);
-                textView2 = (TextView) CreateViewControl.createControl(view, R.id.textView2);
-                button1 = Buttons.createButton(view, R.id.back_bt);
+                txtId.add(R.id.txt1);
+                txtId.add(R.id.txt2);
+                txtId.add(R.id.textView2);
+                button1 = (Button) view.findViewById(R.id.back_bt);
                 break;
         }
 
-        button1.setOnClickListener(this);
-
-
-        return view;
+        for (int id : txtId) {
+            textViews.add((TextView) view.findViewById(id));
+        }
     }
 
     @Override
     public void onClick(View v) {
         cnt++;
         String msg = Integer.toString(cnt) + "MSG";
-        textView1.setText(msg);
-        textView2.setText(msg);
+
+        for (TextView txt : textViews) {
+            txt.setText(txt.getId() + "\n" + msg);
+        }
 
         switch(v.getId()) {
             case R.id.next_bt:
