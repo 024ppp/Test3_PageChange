@@ -1,7 +1,6 @@
 package com.example.administrator.test3_pagechange;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
  * Created by yuki on 2016/09/28.
  */
 
-public class ExampleFragment extends Fragment implements View.OnClickListener {
+public class Fragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private final static String POSITION = "POSITION";
     int[] pages = { R.layout.activity0, R.layout.activity1};
     int cnt = 0;
@@ -23,8 +22,8 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
 
     ArrayList<TextView> textViews = new ArrayList<TextView>();
 
-    public static ExampleFragment newInstance(int position) {
-        ExampleFragment frag = new ExampleFragment();
+    public static Fragment newInstance(int position) {
+        Fragment frag = new Fragment();
         Bundle b = new Bundle();
         b.putInt(POSITION, position);
         frag.setArguments(b);
